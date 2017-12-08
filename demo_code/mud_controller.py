@@ -32,7 +32,7 @@ import os
 import json
 import glob
 
-dir_input = "/usr/local/etc/controller/"
+dir_input = "./"
 mud_file_store = dir_input+'mud.json'
 CA = dir_input+'ck.pem'
 
@@ -116,26 +116,26 @@ def get_json_value(json_object, index):
             print 'cannot open file to read', mud_file_store
     else:
         data = json.loads(data)
-    in_acl = (data['ietf-acl:access-lists']['ietf-acl:access-list'][0]['access-list-entries']['ace'])
-    len_in_acl = len(data['ietf-acl:access-lists']['ietf-acl:access-list'][0]['access-list-entries']['ace'])
-    out_acl = (data['ietf-acl:access-lists']['ietf-acl:access-list'][1]['access-list-entries']['ace'])
-    len_out_acl = len(data['ietf-acl:access-lists']['ietf-acl:access-list'][1]['access-list-entries']['ace'])
-    last_update = data['ietf-mud:meta-info']['lastUpdate']
-    cache_validity = data['ietf-mud:meta-info']['cacheValidity']
+    in_acl = (data['ietf-access-control-list:access-lists']['acl'][0]['aces']['ace'])
+    len_in_acl = len(in_acl)
+    out_acl = (data['ietf-access-control-list:access-lists']['acl'][1]['aces']['ace'])
+    len_out_acl = len(out_acl)
+    last_update = data['ietf-mud:mud']['last-update']
+    cache_validity = data['ietf-mud:mud']['cache-validity']
     new_list = []
     for row in in_acl:
         try:
             if json_object == "acl_name_in":
-                mylist = ((data['ietf-acl:access-lists']['ietf-acl:access-list'][0]['acl-name']))
+                mylist = ((data['ietf-access-control-list:access-lists']['acl'][0]['acl-name']))
                 new_list += [mylist]
 	    if json_object == "acl_type_in":
-                mylist = ((data['ietf-acl:access-lists']['ietf-acl:access-list'][0]['ietf-mud:packet-direction']))
+                mylist = ((data['ietf-access-control-list:access-lists']['acl'][0]['acl-name']))
                 new_list += [mylist]
 	    if json_object == "rule_name_in":
                 mylist = ((row['rule-name']))
                 new_list += [mylist]
             if json_object == "src_dnsname_in":
-                mylist = ((row['matches']['ietf-acldns:src-dnsname']))
+                mylist = ((row['matches']['ipv4-acl']['ietf-acldns:src-dnsname']))
                 new_list += [mylist]
             if json_object == "src_protocol_in":
                 mylist = ((row['matches']['protocol']))
@@ -147,23 +147,23 @@ def get_json_value(json_object, index):
                 mylist = ((row['matches']['source-port-range']['upper-port']))
                 new_list += [mylist]
             if json_object == "src_actions_in":
-                mylist = ((row['actions']['permit'][0]))
+                mylist = ((row['actions']['forwarding']))
                 new_list += [mylist]
         except KeyError: 
             pass
     for row in out_acl:
         try:
 	    if json_object == "acl_name_out":
-                mylist = ((data['ietf-acl:access-lists']['ietf-acl:access-list'][1]['acl-name']))
+                mylist =  ((data['ietf-access-control-list:access-lists']['acl'][1]['acl-name']))
                 new_list += [mylist]
             if json_object == "acl_type_out":
-                mylist = ((data['ietf-acl:access-lists']['ietf-acl:access-list'][1]['ietf-mud:packet-direction']))
+                mylist = ((data['ietf-access-control-list:access-lists']['acl'][1]['acl-name']))
                 new_list += [mylist]
             if json_object == "rule_name_out":
                 mylist = ((row['rule-name']))
                 new_list += [mylist]
             if json_object == "src_dnsname_out":
-                mylist = ((row['matches']['ietf-acldns:src-dnsname']))
+                mylist = ((row['matches']['ipv4-acl']['ietf-acldns:dst-dnsname']))
                 new_list += [mylist]
             if json_object == "src_protocol_out":
                 mylist = ((row['matches']['protocol']))
@@ -175,15 +175,16 @@ def get_json_value(json_object, index):
                 mylist = ((row['matches']['source-port-range']['upper-port']))
                 new_list += [mylist]
             if json_object == "src_actions_out":
-                mylist = ((row['actions']['permit'][0]))
+                mylist = ((row['actions']['forwarding']))
                 new_list += [mylist]
         except KeyError: 
             pass
     
     if index < len_in_acl:
         try:
+            #print new_list
             return new_list[index]
-        except ValueError:
+        except IndexError:
             print ""
             
 def read_json():
