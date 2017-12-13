@@ -177,36 +177,36 @@ def get_json_value(json_object, index):
             if json_object == "src_actions_out":
                 mylist = ((row['actions']['forwarding']))
                 new_list += [mylist]
-        except KeyError: 
+        except KeyError:
             pass
-    
+
     if index < len_in_acl:
         try:
             #print new_list
             return new_list[index]
         except IndexError:
             print ""
-            
+
 def read_json():
 	# In_ACL
-	acl_name_in = get_json_value("acl_name_in",0)
-	acl_type_in = get_json_value("acl_type_in",0)
-	rule_name_in = get_json_value("rule_name_in",0)
-	src_dnsname_in = get_json_value("src_dnsname_in",0)
-	src_protocol_in = get_json_value("src_protocol_in",0)
-	src_lower_port_in = get_json_value("src_lower_port_in",0)
-	src_upper_port_in = get_json_value("src_upper_port_in",0)
-	src_actions_in = get_json_value("src_actions_in",0)
+    acl_name_in = get_json_value("acl_name_in", 0)
+    acl_type_in = get_json_value("acl_type_in", 0)
+    rule_name_in = get_json_value("rule_name_in", 0)
+    src_dnsname_in = get_json_value("src_dnsname_in", 0)
+    src_protocol_in = get_json_value("src_protocol_in", 0)
+    src_lower_port_in = get_json_value("src_lower_port_in", 0)
+    src_upper_port_in = get_json_value("src_upper_port_in", 0)
+    src_actions_in = get_json_value("src_actions_in", 0)
 	# Out_ACL
-        acl_name_out = get_json_value("acl_name_out",0)
-        acl_type_out = get_json_value("acl_type_out",0)
-	rule_name_out = get_json_value("rule_name_out",0)
-	src_dnsname_out = get_json_value("src_dnsname_out",0)
-	src_protocol_out = get_json_value("src_protocol_out",0)
-	src_lower_port_out = get_json_value("src_lower_port_out",0)
-	src_upper_port_out = get_json_value("src_upper_port_out",0)
-	src_actions_out = get_json_value("src_actions_out",0)
-	
+    acl_name_out = get_json_value("acl_name_out", 0)
+    acl_type_out = get_json_value("acl_type_out", 0)
+    rule_name_out = get_json_value("rule_name_out", 0)
+    src_dnsname_out = get_json_value("src_dnsname_out", 0)
+    src_protocol_out = get_json_value("src_protocol_out", 0)
+    src_lower_port_out = get_json_value("src_lower_port_out", 0)
+    src_upper_port_out = get_json_value("src_upper_port_out", 0)
+    src_actions_out = get_json_value("src_actions_out", 0)
+    '''
 	def dacl_ip_in():
             if (src_dnsname_in == "attacker"): #dnsname to ip
                 ip_address_in = "172.19.155.54"
@@ -282,6 +282,7 @@ def read_json():
 
 	if (str(sys.argv[2]) == "U2"): #Read from file to send DACL user name for egrees
 			print acl_name_out# DACL name with crypto key
+    '''
 
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
