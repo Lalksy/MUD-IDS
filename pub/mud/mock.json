@@ -1,0 +1,71 @@
+{
+  "ietf-mud:mud": {
+    "mud-url": "https://localhost/.well-known/mud/v1/mock.json",
+    "last-update": "2017-12-08T05:23:26+01:00",
+    "cache-validity": 48,
+    "is-supported": true,
+    "systeminfo": "https://localhost/mock.txt",
+    "from-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "acl-name": "mud-72198-v4fr",
+            "acl-type": "ietf-access-control-list:ipv4-acl"
+          }
+        ]
+      }
+    },
+    "to-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "acl-name": "mud-72198-v4to",
+            "acl-type": "ietf-access-control-list:ipv4-acl"
+          }
+        ]
+      }
+    }
+  },
+  "ietf-access-control-list:access-lists": {
+    "acl": [
+      {
+        "acl-name": "mud-72198-v4to",
+        "acl-type": "ipv4-acl",
+        "aces": {
+          "ace": [
+            {
+              "rule-name": "cl0-todev",
+              "matches": {
+                "ipv4-acl": {
+                  "ietf-acldns:src-dnsname": "amazon.com"
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "acl-name": "mud-72198-v4fr",
+        "acl-type": "ipv4-acl",
+        "aces": {
+          "ace": [
+            {
+              "rule-name": "cl0-frdev",
+              "matches": {
+                "ipv4-acl": {
+                  "ietf-acldns:dst-dnsname": "amazon.com"
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

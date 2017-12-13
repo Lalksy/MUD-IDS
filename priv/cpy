@@ -1,0 +1,3 @@
+sudo openssl cms -sign -in ../pub/mock.json -signer ck.pem -inkey key.pem -binary -outform DER -out ../pub/mock.p7s
+
+sudo openssl cms -verify -in ../pub/mock.p7s -out ../pub/mud.json -CAfile ck.pem -inform DER -content ../pub/mock.json
