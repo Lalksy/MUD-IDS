@@ -194,32 +194,35 @@ def read_json():
     i = 0
     more = True
     while more:
-        try:
         # In_ACL
-        in_acl = dict()
-        in_acl['name'] = get_json_value("acl_name_in", i)
-        in_acl['type'] = get_json_value("acl_type_in", i)
-        in_acl['rule'] = get_json_value("rule_name_in", i)
-        in_acl['dnsname'] = get_json_value("src_dnsname_in", i)
-        in_acl['protocol'] = get_json_value("src_protocol_in", i)
-        in_acl['lower_port'] = get_json_value("src_lower_port_in", i)
-        in_acl['upper-port'] = get_json_value("src_upper_port_in", i)
-        in_acl['action'] = get_json_value("src_actions_in", i)
-
-        print(in_acl)
-        # Out_ACL
-        out_acl = dict()
-        out_acl['name'] = get_json_value("acl_name_out", i)
-        out_acl['type'] = get_json_value("acl_type_out", i)
-        out_acl['rule'] = get_json_value("rule_name_out", i)
-        out_acl['dnsname'] = get_json_value("src_dnsname_out", i)
-        out_acl['protocol'] = get_json_value("src_protocol_out", i)
-        out_acl['lower_port'] = get_json_value("src_lower_port_out", i)
-        out_acl['upper_port'] = get_json_value("src_upper_port_out", i)
-        out_acl['action'] = get_json_value("src_actions_out", i)
-        print(out_acl)
-    print(get_json_value("src_dnsname_out", 1))
-    return in_acl, out_acl
+        if (get_json_value("acl_name_in", i)):
+            acl = dict()
+            in_acl = dict()
+            in_acl['name'] = get_json_value("acl_name_in", i)
+            in_acl['type'] = get_json_value("acl_type_in", i)
+            in_acl['rule'] = get_json_value("rule_name_in", i)
+            in_acl['dnsname'] = get_json_value("src_dnsname_in", i)
+            in_acl['protocol'] = get_json_value("src_protocol_in", i)
+            in_acl['lower_port'] = get_json_value("src_lower_port_in", i)
+            in_acl['upper-port'] = get_json_value("src_upper_port_in", i)
+            in_acl['action'] = get_json_value("src_actions_in", i)
+            acl['in'] = in_acl
+            print(in_acl)
+            # Out_ACL
+            out_acl = dict()
+            out_acl['name'] = get_json_value("acl_name_out", i)
+            out_acl['type'] = get_json_value("acl_type_out", i)
+            out_acl['rule'] = get_json_value("rule_name_out", i)
+            out_acl['dnsname'] = get_json_value("src_dnsname_out", i)
+            out_acl['protocol'] = get_json_value("src_protocol_out", i)
+            out_acl['lower_port'] = get_json_value("src_lower_port_out", i)
+            out_acl['upper_port'] = get_json_value("src_upper_port_out", i)
+            out_acl['action'] = get_json_value("src_actions_out", i)
+            acl['out'] = out_acl
+            rules.append(acl)
+        else :
+            more = false
+    return rules
 
     '''
 	def dacl_ip_in():
@@ -305,4 +308,5 @@ if __name__ == '__main__':
     else:
         a = "null"
     radius()# call json and signature verify program
-    i, o = read_json() # send the request
+    r = read_json() # send the request
+    print(r)
