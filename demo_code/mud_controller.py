@@ -187,29 +187,34 @@ def get_json_value(json_object, index):
             print ""
 
 def read_json():
-	# In_ACL
-    in_acl = dict()
-    in_acl['name'] = get_json_value("acl_name_in", 0)
-    in_acl['type'] = get_json_value("acl_type_in", 0)
-    in_acl['rule'] = get_json_value("rule_name_in", 0)
-    in_acl['dnsname'] = get_json_value("src_dnsname_in", 0)
-    in_acl['protocol'] = get_json_value("src_protocol_in", 0)
-    in_acl['lower_port'] = get_json_value("src_lower_port_in", 0)
-    in_acl['upper-port'] = get_json_value("src_upper_port_in", 0)
-    in_acl['action'] = get_json_value("src_actions_in", 0)
+    rules = []
+    i = 0
+    more = True
+    while more:
+        try:
+        # In_ACL
+        in_acl = dict()
+        in_acl['name'] = get_json_value("acl_name_in", i)
+        in_acl['type'] = get_json_value("acl_type_in", i)
+        in_acl['rule'] = get_json_value("rule_name_in", i)
+        in_acl['dnsname'] = get_json_value("src_dnsname_in", i)
+        in_acl['protocol'] = get_json_value("src_protocol_in", i)
+        in_acl['lower_port'] = get_json_value("src_lower_port_in", i)
+        in_acl['upper-port'] = get_json_value("src_upper_port_in", i)
+        in_acl['action'] = get_json_value("src_actions_in", i)
 
-    print(in_acl)
-	# Out_ACL
-    out_acl = dict()
-    out_acl['name'] = get_json_value("acl_name_out", 0)
-    out_acl['type'] = get_json_value("acl_type_out", 0)
-    out_acl['rule'] = get_json_value("rule_name_out", 0)
-    out_acl['dnsname'] = get_json_value("src_dnsname_out", 0)
-    out_acl['protocol'] = get_json_value("src_protocol_out", 0)
-    out_acl['lower_port'] = get_json_value("src_lower_port_out", 0)
-    out_acl['upper_port'] = get_json_value("src_upper_port_out", 0)
-    out_acl['action'] = get_json_value("src_actions_out", 0)
-    print(out_acl)
+        print(in_acl)
+        # Out_ACL
+        out_acl = dict()
+        out_acl['name'] = get_json_value("acl_name_out", i)
+        out_acl['type'] = get_json_value("acl_type_out", i)
+        out_acl['rule'] = get_json_value("rule_name_out", i)
+        out_acl['dnsname'] = get_json_value("src_dnsname_out", i)
+        out_acl['protocol'] = get_json_value("src_protocol_out", i)
+        out_acl['lower_port'] = get_json_value("src_lower_port_out", i)
+        out_acl['upper_port'] = get_json_value("src_upper_port_out", i)
+        out_acl['action'] = get_json_value("src_actions_out", i)
+        print(out_acl)
     print(get_json_value("src_dnsname_out", 1))
     return in_acl, out_acl
 
