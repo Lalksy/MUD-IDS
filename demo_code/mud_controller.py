@@ -153,8 +153,8 @@ def get_json_value(json_object, index):
             pass
     for row in out_acl:
         try:
-	    if json_object == "acl_name_out":
-                mylist =  ((data['ietf-access-control-list:access-lists']['acl'][1]['acl-name']))
+	        if json_object == "acl_name_out":
+                mylist = ((data['ietf-access-control-list:access-lists']['acl'][1]['acl-name']))
                 new_list += [mylist]
             if json_object == "acl_type_out":
                 mylist = ((data['ietf-access-control-list:access-lists']['acl'][1]['acl-name']))
@@ -210,6 +210,7 @@ def read_json():
     out_acl['upper_port'] = get_json_value("src_upper_port_out", 0)
     out_acl['action'] = get_json_value("src_actions_out", 0)
     print(out_acl)
+    print(get_json_value("src_dnsname_out", 1))
     return in_acl, out_acl
 
     '''
