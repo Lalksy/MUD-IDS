@@ -1,0 +1,106 @@
+
+{
+  "ietf-mud:mud": {
+    "mud-url": "https://localhost:8000/.well-known/mud/v1/pi-cam-2",
+    "last-update": "2017-12-14T02:47:59+01:00",
+    "cache-validity": 48,
+    "is-supported": true,
+    "systeminfo": "https://localhost/mud/pi-cam-2",
+    "from-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "acl-name": "mud-59715-v4fr",
+            "acl-type": "ietf-access-control-list:ipv4-acl"
+          }
+        ]
+      }
+    },
+    "to-device-policy": {
+      "access-lists": {
+        "access-list": [
+          {
+            "acl-name": "mud-59715-v4to",
+            "acl-type": "ietf-access-control-list:ipv4-acl"
+          }
+        ]
+      }
+    }
+  },
+  "ietf-access-control-list:access-lists": {
+    "acl": [
+      {
+        "acl-name": "mud-59715-v4to",
+        "acl-type": "ipv4-acl",
+        "aces": {
+          "ace": [
+            {
+              "rule-name": "cl0-todev",
+              "matches": {
+                "ipv4-acl": {
+                  "ietf-acldns:src-dnsname": "www.columbia.edu",
+                  "protocol": 6,
+                  "source-port-range": {
+                    "lower-port": 80,
+                    "upper-port": 80
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "rule-name": "cl1-todev",
+              "matches": {
+                "ipv4-acl": {
+                  "ietf-acldns:src-dnsname": "www.dropbox.com",
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "acl-name": "mud-59715-v4fr",
+        "acl-type": "ipv4-acl",
+        "aces": {
+          "ace": [
+            {
+              "rule-name": "cl0-frdev",
+              "matches": {
+                "ipv4-acl": {
+                  "ietf-acldns:dst-dnsname": "www.columbia.edu",
+                  "protocol": 6,
+                  "destination-port-range": {
+                    "lower-port": 80,
+                    "upper-port": 80
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            },
+            {
+              "rule-name": "cl1-frdev",
+              "matches": {
+                "ipv4-acl": {
+                  "ietf-acldns:dst-dnsname": "www.dropbox.com",
+                  "protocol": 6
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
