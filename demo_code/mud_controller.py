@@ -184,21 +184,23 @@ def get_json_value(json_object, index):
 
     if index < len_in_acl:
         try:
-            print new_list[index]
             return new_list[index]
         except IndexError:
             print ""
 
 def read_json():
 	# In_ACL
-    acl_name_in = get_json_value("acl_name_in", 0)
-    acl_type_in = get_json_value("acl_type_in", 0)
-    rule_name_in = get_json_value("rule_name_in", 0)
-    src_dnsname_in = get_json_value("src_dnsname_in", 0)
-    src_protocol_in = get_json_value("src_protocol_in", 0)
-    src_lower_port_in = get_json_value("src_lower_port_in", 0)
-    src_upper_port_in = get_json_value("src_upper_port_in", 0)
-    src_actions_in = get_json_value("src_actions_in", 0)
+    in_acl = dict()
+    in_acl['name'] = get_json_value("acl_name_in", 0)
+    in_acl['type'] = get_json_value("acl_type_in", 0)
+    in_acl['rule'] = get_json_value("rule_name_in", 0)
+    in_acl['dnsname'] = get_json_value("src_dnsname_in", 0)
+    in_acl['protocol'] = get_json_value("src_protocol_in", 0)
+    in_acl['lower_port'] = get_json_value("src_lower_port_in", 0)
+    in_acl['upper-port'] = get_json_value("src_upper_port_in", 0)
+    in_acl['action'] = get_json_value("src_actions_in", 0)
+
+    print(in_acl)
 	# Out_ACL
     acl_name_out = get_json_value("acl_name_out", 0)
     acl_type_out = get_json_value("acl_type_out", 0)
