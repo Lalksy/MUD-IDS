@@ -150,8 +150,6 @@ def get_json_value(json_object, index):
                 mylist = ((row['actions']['forwarding']))
                 new_list += [mylist]
         except KeyError: 
-            mylist = ((""))
-            new_list += [mylist]
             pass
     for row in out_acl:
         try:
@@ -212,6 +210,8 @@ def read_json():
     out_acl['upper_port'] = get_json_value("src_upper_port_out", 0)
     out_acl['action'] = get_json_value("src_actions_out", 0)
     print(out_acl)
+    return in_acl, out_acl
+
     '''
 	def dacl_ip_in():
             if (src_dnsname_in == "attacker"): #dnsname to ip
@@ -295,5 +295,5 @@ if __name__ == '__main__':
         a = str(sys.argv[1]) # Access through
     else:
         a = "null"
-    radius()# call json and signature verify program 
-    read_json() # send the request
+    radius()# call json and signature verify program
+    i, o = read_json() # send the request

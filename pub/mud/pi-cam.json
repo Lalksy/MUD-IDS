@@ -1,15 +1,16 @@
+
 {
   "ietf-mud:mud": {
-    "mud-url": "https://localhost/.well-known/mud/v1/mock.json",
-    "last-update": "2017-12-08T05:23:26+01:00",
+    "mud-url": "https://localhost/.well-known/mud/v1/pi-cam",
+    "last-update": "2017-12-14T02:26:15+01:00",
     "cache-validity": 48,
     "is-supported": true,
-    "systeminfo": "https://localhost/mock.txt",
+    "systeminfo": "https://localhost/mud/pi-cam",
     "from-device-policy": {
       "access-lists": {
         "access-list": [
           {
-            "acl-name": "mud-72198-v4fr",
+            "acl-name": "mud-23111-v4fr",
             "acl-type": "ietf-access-control-list:ipv4-acl"
           }
         ]
@@ -19,7 +20,7 @@
       "access-lists": {
         "access-list": [
           {
-            "acl-name": "mud-72198-v4to",
+            "acl-name": "mud-23111-v4to",
             "acl-type": "ietf-access-control-list:ipv4-acl"
           }
         ]
@@ -29,7 +30,7 @@
   "ietf-access-control-list:access-lists": {
     "acl": [
       {
-        "acl-name": "mud-72198-v4to",
+        "acl-name": "mud-23111-v4to",
         "acl-type": "ipv4-acl",
         "aces": {
           "ace": [
@@ -37,7 +38,12 @@
               "rule-name": "cl0-todev",
               "matches": {
                 "ipv4-acl": {
-                  "ietf-acldns:src-dnsname": "amazon.com"
+                  "ietf-acldns:src-dnsname": "www.columbia.edu",
+                  "protocol": 6,
+                  "source-port-range": {
+                    "lower-port": 80,
+                    "upper-port": 80
+                  }
                 }
               },
               "actions": {
@@ -48,7 +54,7 @@
         }
       },
       {
-        "acl-name": "mud-72198-v4fr",
+        "acl-name": "mud-23111-v4fr",
         "acl-type": "ipv4-acl",
         "aces": {
           "ace": [
@@ -56,7 +62,12 @@
               "rule-name": "cl0-frdev",
               "matches": {
                 "ipv4-acl": {
-                  "ietf-acldns:dst-dnsname": "amazon.com"
+                  "ietf-acldns:dst-dnsname": "www.columbia.edu",
+                  "protocol": 6,
+                  "destination-port-range": {
+                    "lower-port": 80,
+                    "upper-port": 80
+                  }
                 }
               },
               "actions": {
