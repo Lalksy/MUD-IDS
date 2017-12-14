@@ -202,14 +202,16 @@ def read_json():
 
     print(in_acl)
 	# Out_ACL
-    acl_name_out = get_json_value("acl_name_out", 0)
-    acl_type_out = get_json_value("acl_type_out", 0)
-    rule_name_out = get_json_value("rule_name_out", 0)
-    src_dnsname_out = get_json_value("src_dnsname_out", 0)
-    src_protocol_out = get_json_value("src_protocol_out", 0)
-    src_lower_port_out = get_json_value("src_lower_port_out", 0)
-    src_upper_port_out = get_json_value("src_upper_port_out", 0)
-    src_actions_out = get_json_value("src_actions_out", 0)
+    out_acl = dict()
+    out_acl['name'] = get_json_value("acl_name_out", 0)
+    out_acl['type'] = get_json_value("acl_type_out", 0)
+    out_acl['rule'] = get_json_value("rule_name_out", 0)
+    out_acl['dnsname'] = get_json_value("src_dnsname_out", 0)
+    out_acl['protocol'] = get_json_value("src_protocol_out", 0)
+    out_acl['lower_port'] = get_json_value("src_lower_port_out", 0)
+    out_acl['upper_port'] = get_json_value("src_upper_port_out", 0)
+    out_acl['action'] = get_json_value("src_actions_out", 0)
+    print(out_acl)
     '''
 	def dacl_ip_in():
             if (src_dnsname_in == "attacker"): #dnsname to ip
@@ -289,9 +291,9 @@ def read_json():
     '''
 
 if __name__ == '__main__':
-	if len(sys.argv) > 1:
-		a = str(sys.argv[1]) # Access through
-	else :
-		a = "null"
-	radius()# call json and signature verify program 
-	read_json() # send the request
+    if len(sys.argv) > 1:
+        a = str(sys.argv[1]) # Access through
+    else:
+        a = "null"
+    radius()# call json and signature verify program 
+    read_json() # send the request
