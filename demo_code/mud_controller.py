@@ -138,13 +138,13 @@ def get_json_value(json_object, index):
                 mylist = ((row['matches']['ipv4-acl']['ietf-acldns:src-dnsname']))
                 new_list += [mylist]
             if json_object == "src_protocol_in":
-                mylist = ((row['matches']['protocol']))
+                mylist = ((row['matches']['ipv4-acl']['protocol']))
                 new_list += [mylist]
             if json_object == "src_lower_port_in":
-                mylist = ((row['matches']['source-port-range']['lower-port']))
+                mylist = ((row['matches']['ipv4-acl']['source-port-range']['lower-port']))
                 new_list += [mylist]
             if json_object == "src_upper_port_in":
-                mylist = ((row['matches']['source-port-range']['upper-port']))
+                mylist = ((row['matches']['ipv4-acl']['source-port-range']['upper-port']))
                 new_list += [mylist]
             if json_object == "src_actions_in":
                 mylist = ((row['actions']['forwarding']))
@@ -166,13 +166,13 @@ def get_json_value(json_object, index):
                 mylist = ((row['matches']['ipv4-acl']['ietf-acldns:dst-dnsname']))
                 new_list += [mylist]
             if json_object == "src_protocol_out":
-                mylist = ((row['matches']['protocol']))
+                mylist = ((row['matches']['ipv4-acl']['protocol']))
                 new_list += [mylist]
             if json_object == "src_lower_port_out":
-                mylist = ((row['matches']['source-port-range']['lower-port']))
+                mylist = ((row['matches']['ipv4-acl']['source-port-range']['lower-port']))
                 new_list += [mylist]
             if json_object == "src_upper_port_out":
-                mylist = ((row['matches']['source-port-range']['upper-port']))
+                mylist = ((row['matches']['ipv4-acl']['source-port-range']['upper-port']))
                 new_list += [mylist]
             if json_object == "src_actions_out":
                 mylist = ((row['actions']['forwarding']))
