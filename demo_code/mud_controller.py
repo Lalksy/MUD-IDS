@@ -220,8 +220,9 @@ def read_json():
             out_acl['action'] = get_json_value("src_actions_out", i)
             acl['out'] = out_acl
             rules.append(acl)
+            i += 1
         else :
-            more = false
+            more = False
     return rules
 
     '''
