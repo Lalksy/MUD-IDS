@@ -149,8 +149,9 @@ def get_json_value(json_object, index):
             if json_object == "src_actions_in":
                 mylist = ((row['actions']['forwarding']))
                 new_list += [mylist]
-        except KeyError: 
-            pass
+        except KeyError:
+            mylist = ((""))
+            new_list += [mylist]
     for row in out_acl:
         try:
             if json_object == "acl_name_out":
@@ -178,10 +179,12 @@ def get_json_value(json_object, index):
                 mylist = ((row['actions']['forwarding']))
                 new_list += [mylist]
         except KeyError:
-            pass
+            mylist = ((""))
+            new_list += [mylist]
 
     if index < len_in_acl:
         try:
+            print(new_list)
             return new_list[index]
         except IndexError:
             print ""
