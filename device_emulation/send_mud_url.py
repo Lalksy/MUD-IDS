@@ -4,7 +4,7 @@ from scapy.all import *
 offers = 0
 
 def pkt_callback(pkt):
-    pkt.show() # debug statement
+    #pkt.show() # debug statement
     if (offers == 0):
         global offers
         offers += 1
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         IP(src="0.0.0.0",dst="255.255.255.255") / \
         scapy.all.UDP(sport=68,dport=67) / \
         scapy.all.BOOTP(chaddr='\x78\x4f\x43\x67\xb2\xcb') / \
-        scapy.all.DHCP(options=[("message-type","discover"), (161, "http://localhost:8000/mud/pi-cam2.json"), "end"])
+        scapy.all.DHCP(options=[("message-type","discover"), (161, "http://storm.cis.fordham.edu/~rieger/mud/mock.json"), "end"])
     while(offers == 0):
         wrpcap("test.pcap", dhcp_discover)
         scapy.all.sendp(dhcp_discover)
