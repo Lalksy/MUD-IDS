@@ -32,88 +32,88 @@ import os
 import json
 import glob
 
-dir_input = "./"
-mud_file_store = dir_input+'mud.json'
-CA = dir_input+'ck.pem'
-
 def dlfile(device_json, device_ps7):
     # Open the url
     # device_json for json file form mudserver
     # device_ps7 for getting signed signature
+    dir_input = "./"
+    mud_file_store = dir_input+'mud.json'
+    CA = './static_profile/ck.pem'
     try:
         f1 = urlopen(device_json)
-	device_name = device_json.split("mud/",1)[1]
+        device_name = device_json.split("mud/",1)[1]
         if device_name.endswith(".json"):
-		device_json_path = dir_input+device_name
-		# writing json file
-                with open(device_json_path, "wb") as local_file:
-                     local_file.write(f1.read())
-		device_name_ps7_format = device_json.split("mud/",1)[1]
-                device_name_ps7_format = os.path.splitext(device_name_ps7_format)[0]
-                device_name_ps7 = dir_input+device_name_ps7_format+".p7s"
-		f2 = urlopen(device_ps7)
-        	# writing signature file
-        	with open(device_name_ps7, "wb") as local_file:
-            		local_file.write(f2.read())
-
-	else:
-	        device_json_path = dir_input+device_name
-		device_json_format = device_json.split("mud/",1)[1]+".json"
-		# writing json file
-                with open(device_json_path, "wb") as local_file:
-                     local_file.write(f1.read())
-        	f2 = urlopen(device_ps7)
-        	device_name_ps7_format = device_ps7.split("mud/",1)[1][:-1]
-        	device_name_ps7 = dir_input+device_name_ps7_format
-        	# writing signature file
-        	with open(device_name_ps7, "wb") as local_file:
-            		local_file.write(f2.read())
+            device_json_path = dir_input+device_name
+            # writing json file
+            with open(device_json_path, "wb") as local_file:
+                local_file.write(f1.read())
+            device_name_ps7_format = device_json.split("mud/",1)[1]
+            device_name_ps7_format = os.path.splitext(device_name_ps7_format)[0]
+            device_name_ps7 = dir_input+device_name_ps7_format+".p7s"
+            f2 = urlopen(device_ps7)
+            # writing signature file
+            with open(device_name_ps7, "wb") as local_file:
+                local_file.write(f2.read())
+        else:
+            device_json_path = dir_input+device_name
+            device_json_format = device_json.split("mud/",1)[1]+".json"
+		    # writing json file
+            with open(device_json_path, "wb") as local_file:
+                local_file.write(f1.read())
+            f2 = urlopen(device_ps7)
+            device_name_ps7_format = device_ps7.split("mud/",1)[1][:-1]
+            device_name_ps7 = dir_input+device_name_ps7_format
+            # writing signature file
+            with open(device_name_ps7, "wb") as local_file:
+                local_file.write(f2.read())
         # calling openssl command
         decrypted = call(['openssl', 'cms', '-verify', '-in', device_name_ps7, '-CAfile', CA, '-out', mud_file_store, '-inform', 'DER', '-content', device_json_path])
+        return decrypted
         #delete(device_name) # remove old download files
     #handle errors
     except HTTPError, e:
         print "HTTP Error:", e.code, device_json, device_ps7
+        return 1
     except URLError, e:
         print "URL Error:", e.reason, device_json, device_ps7
+        return 1
 
 def delete(device_name_del):
-	filename = device_name_del
-	search_trace = [filename+'.p7s', filename+'.json']
-	file_list = []
-	for root, dirs, files in os.walk(dir_input):
-		for trace in search_trace:
-			search_trace_path = os.path.join(root, trace)
-			for filename in glob.glob(search_trace_path):
-				if os.path.exists(filename):
-					file_list.append(filename)
-				else:
-					print 'No files path found +name'
-	for device_file in file_list:
-			os.remove(device_file)
-        
-def radius():
-    if (str(sys.argv[2]) == "W"):
-        device_url = str(sys.argv[1])# print url
-        device_json = device_url
-	if device_json.endswith(".json"):
-	        device_url_ps7 = device_url
-		device_url_ps7 = device_url_ps7.split(".json",1)[0]
-		device_name_ps7 = device_url_ps7.split("mud/",1)[1]
-                device_name_ps7_format = os.path.splitext(device_name_ps7)[0]
-                device_ps7 = device_url_ps7+".p7s"
-                print device_ps7
-
-	else: 
-		device_ps7 = device_url+".p7s/"
-        dlfile(device_json, device_ps7)
+    dir_input = "./"
+    filename = device_name_del
+    search_trace = [filename+'.p7s', filename+'.json']
+    file_list = []
+    for root, dirs, files in os.walk(dir_input):
+        for trace in search_trace:
+            search_trace_path = os.path.join(root, trace)
+            for filename in glob.glob(search_trace_path):
+                if os.path.exists(filename):
+                    file_list.append(filename)
+                else:
+                    print 'No files path found +name'
+    for device_file in file_list:
+        os.remove(device_file)
+                        
+def radius(device_url):
+    device_json = device_url
+    if device_json.endswith(".json"):
+        device_url_ps7 = device_url
+        device_url_ps7 = device_url_ps7.split(".json",1)[0]
+        device_name_ps7 = device_url_ps7.split("mud/",1)[1]
+        device_name_ps7_format = os.path.splitext(device_name_ps7)[0]
+        device_ps7 = device_url_ps7+".p7s"
+        print device_ps7
+    else: 
+        device_ps7 = device_url+".p7s/"
+    return dlfile(device_json, device_ps7)
 
 def get_json_value(json_object, index):
+    mud_file_store = './mud.json'
     try:
         with open(mud_file_store, 'r') as f:
-             data = f.read()
+            data = f.read()
     except IOError:
-            print 'cannot open file to read', mud_file_store
+        print 'cannot open file to read', mud_file_store
     else:
         data = json.loads(data)
     in_acl = (data['ietf-access-control-list:access-lists']['acl'][0]['aces']['ace'])
@@ -184,7 +184,6 @@ def get_json_value(json_object, index):
 
     if index < len_in_acl:
         try:
-            print(new_list)
             return new_list[index]
         except IndexError:
             print ""
@@ -207,7 +206,7 @@ def read_json():
             in_acl['upper-port'] = get_json_value("src_upper_port_in", i)
             in_acl['action'] = get_json_value("src_actions_in", i)
             acl['in'] = in_acl
-            print(in_acl)
+          
             # Out_ACL
             out_acl = dict()
             out_acl['name'] = get_json_value("acl_name_out", i)
@@ -301,13 +300,12 @@ def read_json():
 
 	if (str(sys.argv[2]) == "U2"): #Read from file to send DACL user name for egrees
 			print acl_name_out# DACL name with crypto key
-    '''
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         a = str(sys.argv[1]) # Access through
-    else:
-        a = "null"
-    radius()# call json and signature verify program
-    r = read_json() # send the request
-    print(r)
+        radius(a)# call json and signature verify program
+        r = read_json() # send the request
+        print(r)
+'''
