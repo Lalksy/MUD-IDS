@@ -25,8 +25,8 @@ def valid_ip(address):
 
 if __name__ == "__main__":
 
-    if (len(sys.argv) != 3) :
-        print "Usage: python mini_dhcp_client.py <mac> <current ip>"
+    if (len(sys.argv) != 4) :
+        print "Usage: python mini_dhcp_client.py <mac> <current ip> <wireless interface>"
         exit()
     mac = sys.argv[1].replace(":", "", 5).decode('hex')
 
@@ -34,6 +34,7 @@ if __name__ == "__main__":
     if(not valid_ip(ip)):
         print "Invalid ip address."
         exit()
+    interface = sys.argv[3]
     
     dhcp_discover = Ether(dst="ff:ff:ff:ff:ff:ff") / \
         IP(src="0.0.0.0",dst="255.255.255.255") / \
@@ -45,5 +46,5 @@ if __name__ == "__main__":
     while(offers == 0 and counts < 5):
         wrpcap("test.pcap", dhcp_discover)
         scapy.all.sendp(dhcp_discover)
-        sniff(iface="en0", prn=pkt_callback, filter="port 68 and port 67", timeout=2)
+        sniff(iface=interface, prn=pkt_callback, filter="port 68 and port 67", timeout=2)
         counts += 1

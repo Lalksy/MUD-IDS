@@ -1,0 +1,9 @@
+Directions for Running the MUD-URI DCHCP Client with our IDS system.
+
+1. Connect your laptop to the ASUS network.
+2. Record your mac address, IP, and wirless interface
+3. Start the learner script
+4. Run the mini_dhcp_client with your recorded mac, ip, and interface. mac should be in xx:xx:xx:xx:xx:xx format
+       python mini_dhcp_client.py <mac> <IP> <interface>
+
+Notes: If the ack does not show up, try multiple times. After the process is complete, only amazon.com should be reachable.
