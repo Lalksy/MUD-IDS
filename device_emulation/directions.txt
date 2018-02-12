@@ -4,6 +4,7 @@ Directions for Running the MUD-URI DCHCP Client with our IDS system.
 2. Record your mac address, IP, and wirless interface
 3. Start the learner script
 4. Run the mini_dhcp_client with your recorded mac, ip, and interface. mac should be in xx:xx:xx:xx:xx:xx format
-       python mini_dhcp_client.py <mac> <IP> <interface>
+       python mini_dhcp_client.py <mac> <IP> <interface> (-a)
 
 Notes: If the ack does not show up, try multiple times. After the process is complete, only amazon.com should be reachable.
+When using auth, signature should be in sign.txt.sha256.txt and text-encoded. Sample provided.
