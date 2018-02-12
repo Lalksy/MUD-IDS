@@ -9,7 +9,7 @@ The basic concept makes use of a URL that is poot out by a device using one of s
 The goal of MUD is to *reduce* the threat surface on a device to just that of those specific services on specific systems that are expected to communicate with a Thing.
 
 ## Contents
-This repo contians a tool to emulate an IoT device on a laptop, several sample MUD profiles, sample keys, and the mud controller. **Do not reuse these keys to secure aynthing important.**
+This repo contians a tool to emulate an IoT device on a laptop, several sample MUD profiles, sample keys, and the mud controller. **Do not reuse these keys to secure anything important. They are invalid now.**
 The controller contains functions that manipulate MUD files, signatures, and do simple mac-based authentication.
 
 ## The Good News
