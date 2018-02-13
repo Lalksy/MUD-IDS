@@ -7,6 +7,6 @@ Directions for Running the MUD-URI DCHCP Client with our IDS system.
        python mini_dhcp_client.py <mac> <IP> <interface> (-a)
 
 Notes: If the ack does not show up, try multiple times. After the process is complete, only amazon.com should be reachable.
-When using auth, signature should be in sign.txt.sha256.txt and text-encoded. Sample provided for mac 78:4f:43:67:b2:cb.
+When using auth, signature should be in sign.txt.sha256.txt and text-encoded. Sample provided for private mac address.
 
 Signatures can be text-encoded with: base64 <sigfile> > <sigfile>.txt
